@@ -15,35 +15,41 @@ export default function NavBar() {
     return (
         // <nav className={styles.nav}>
         <nav>
-            <Link href="/">
-                 {/* <a style={{color: router.pathname === "/" ? "red" : "blue"}} className='hello'>Home</a> */}
-                {/* class명 여러개 주는 법 1 
-                <a className={`${styles.link} ${router.pathname === "/" ? styles.active : ""}` }>Home</a> */}
+            <img src="/logo.svg" />
+            <div>
+                <Link href="/">
                 <a className={router.pathname === "/" ? "active" : ""}>Home</a>
-            </Link>
-            <Link href="/about">
-                {/* class명 여러개 주는 법 2
-                 <a className={[
-                    styles.link,
-                    router.pathname === "/about" ? styles.active : "",
-                    ].join(" ")}>About</a> */}
+                </Link>
+                <Link href="/about">
                 <a className={router.pathname === "/about" ? "active" : ""}>About</a>
-            </Link>
-            {/* <a href="/">Home</a>
-            <a href="/about">About</a> */}
-            {/* style 태그에 jsx 프롭 추가
-             이 스타일들은 오직 이 컴포넌트 내부로 범위가 한정됨 
-            */}
-            <style jsx>{`
-                 nav {
-                     background-color: tomato;
-                 }
-                 a {
-                     text-decoration: none;
-                 }
-                 .active {
-                     color:yellow;
-                 }
+                </Link>
+            </div>
+             <style jsx>{`
+                nav {
+                display: flex;
+                gap: 10px;
+                flex-direction: column;
+                align-items: center;
+                padding-top: 20px;
+                padding-bottom: 10px;
+                box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+                    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+                }
+                img {
+                max-width: 100px;
+                margin-bottom: 5px;
+                }
+                nav a {
+                font-weight: 600;
+                font-size: 18px;
+                }
+                .active {
+                color: tomato;
+                }
+                nav div {
+                display: flex;
+                gap: 10px;
+                }
             `}</style>
         </nav>
     ) 
