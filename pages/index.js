@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import Link from "next/link";
+import { useRouter } from "next/router";
 // import NavBar from "../components/NabBar";
 // import Head from "next/head";
 import Seo from "../components/Seo";
@@ -57,10 +59,14 @@ export default function Home ({results}) {
           <Seo title="Home" />
           {/* {!movies && <h4>Loading...</h4>} */}
           {results?.map((movie) => (
-            <div className="movie" key={movie.id}>
-              <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
-              <h4>{movie.original_title}</h4>
-            </div>
+            <Link href={`/movies/${movie.id}`} key={movie.id}>
+              <a>
+                <div className="movie">
+                  <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
+                  <h4>{movie.original_title}</h4>
+                </div>
+              </a>
+            </Link>
           ))}
           <style jsx>{`
             .container {
