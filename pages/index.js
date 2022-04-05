@@ -3,20 +3,20 @@ import { useState, useEffect } from 'react';
 // import Head from "next/head";
 import Seo from "../components/Seo";
 
-export default function Home () {
-    const [movies, setMovies] = useState();
-    useEffect(() => {
-        (async () => {
-        const { results } = await (await fetch(`/api/movies`)).json();
-        setMovies(results);
-        })();
-    }, []);
+export default function Home ({results}) {
+    // const [movies, setMovies] = useState();
+    // useEffect(() => {
+    //     (async () => {
+    //     const { results } = await (await fetch(`/api/movies`)).json();
+    //     setMovies(results);
+    //     })();
+    // }, []);
 
     return (
         <div className="container">
           <Seo title="Home" />
-          {!movies && <h4>Loading...</h4>}
-          {movies?.map((movie) => (
+          {/* {!movies && <h4>Loading...</h4>} */}
+          {results?.map((movie) => (
             <div className="movie" key={movie.id}>
               <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
               <h4>{movie.original_title}</h4>
@@ -53,3 +53,18 @@ export default function Home () {
 // create react app은 client-side render를 하는 앱을 만드는 것
 // client-side 란 내 브라우저가 유저가 보는 UI 를 만드는 모든 것을 한다는 것을 의미
 
+// getServerSideProps라는 이름이 매우 중요하고 다른 걸로 바꾸면 안됨
+// 이 함수 내에서 어떤 코드를 쓰던지 간에 그 코드는 서버에서 돌아가게 됨 
+// client쪽이 아니라 server쪽에서만 작동 
+// 그렇다면 이걸 이용해서 API key를 숨길 수도 있겠군?
+// rewrites를 꼭 안써도 되겠어 
+// 대신에 api key를 여기에 쓴다면 절대로 client에게 보여지지 않을 것 백엔드에서만 실행되니까!
+// 데이터가 유효할 때 화면이 보여지게 되는게 좋은지 또는 로딩화면을 보여준 다음에 데이터를 받는게 좋은지
+export async function getServerSideProps() {
+  const { results } = await (await fetch(`http://localhost:3000/api/movies`)).json();
+  return {
+    props: {
+      results,
+    }
+  }
+}
